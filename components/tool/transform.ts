@@ -180,8 +180,12 @@ interface Node {
 }
 
 export function processNodes(node: Node): Node {
+    //console.log("Node: ", node)
+
     // Clone the node to avoid modifying the original object
     const processedNode = { ...node }
+
+   // console.log("Processed node: ", processedNode)
 
     if (node.type === 'text') {
         const mappedMarks = (node.marks || []).reduce((acc, mark) => [...acc, mapMarks(mark.type)], [])
@@ -195,6 +199,8 @@ export function processNodes(node: Node): Node {
         // If the node has children (i.e., it's a parent node), recursively process its children
         processedNode.content = node.content.map((childNode) => processNodes(childNode))
     }
+
+    //console.log("Final Processed node: ", processedNode)
 
     return processedNode
 }

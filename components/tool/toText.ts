@@ -23,25 +23,41 @@ export function toPlainText(json: Node[]): string {
     // Iterate over each block in the JSON content
     let plainText = ''
 
-    for (let i = 0; i < json.length; i++) {
-        const block = json[i]
-        const text = toText(block)
+    if (json) {
 
-        if (block.type === 'paragraph' && !text.trim()) {
-            // If it's a paragraph block with no content, add a block separator '\n\n'
-            plainText += '\n\n'
-        } else {
-            // If it's not the last block and the next block is a paragraph with content, add a block separator '\n\n'
-            if (
-                i !== json.length - 1 &&
-                json[i + 1].type === 'paragraph' &&
-                json[i + 1].content?.some((item) => item.type === 'text')
-            ) {
-                plainText += text + '\n'
+        for (let i = 0; i < json.length; i++) {
+            const block = json[i]
+            const text = toText(block)
+
+            if (block.type === 'paragraph' && !text.trim()) {
+                // If it's a paragraph block with no content, add a block separator '\n\n'
+                plainText += "\n\n"
             } else {
-                plainText += text
+                // If it's not the last block and the next block is a paragraph with content, add a block separator '\n\n'
+                if (
+                    i !== json.length - 1 &&
+                    json[i + 1].type === 'paragraph' &&
+                    json[i + 1].content?.some((item) => item.type === 'text')
+                ) {
+                    plainText += text + "\n\n"
+                } else {
+                    plainText += text
+                }
             }
         }
+    } else {
+        console.log("Json node empty: ", json)
     }
+
+    console.log("Plain Text: ", plainText)
+
     return plainText
+}
+
+export function toHtmlText(text: string): string {
+
+    // Replace /n with br
+    text = text.replace(/\n/g, '<br>');
+
+    return text;
 }

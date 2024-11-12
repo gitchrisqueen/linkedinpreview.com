@@ -2,7 +2,7 @@ export const ApiRoutes = {}
 
 export const Routes = {
     Home: '',
-    Tool: '/#tool',
+    Tool: '/tool',
     MainFeatures: '/#main-features',
     AllFeatures: '/#all-features',
     HowItWorks: '/#how-it-works',

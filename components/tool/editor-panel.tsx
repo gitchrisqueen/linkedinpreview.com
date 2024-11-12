@@ -9,11 +9,13 @@ import { Icons } from '../icon'
 import { Button } from '../ui/button'
 import { EditorLoading } from './editor-loading'
 import Toolbar from './toolbar'
-import { toPlainText } from './toText'
+import {toHtmlText, toPlainText} from './toText'
 import { processNodes } from './transform'
 
-export function EditorPanel({ onChange }: { onChange: any }) {
+export function EditorPanel({ onChange, content }: { onChange: any, content: string }) {
     const editor = useEditor({
+        //content: "<p>Here it is: "+content+"</p>",
+        content: toHtmlText(toPlainText(processNodes(content).content)),
         extensions: [
             StarterKit.configure({}),
             Underline,
