@@ -1,5 +1,9 @@
 node_modules
+.next
 pnpm-lock.yaml
 npm-debug.log
 Dockerfile
 .dockerignore
+*.log
+.git
+.env

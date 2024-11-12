@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:23.1.0
+FROM node:23-alpine AS base
 
 #RUN npm install nodemon -g
 
@@ -14,15 +14,18 @@ RUN npm install -g pnpm@9.12.3
 # Set the working directory
 WORKDIR /usr/src/app
 
+FROM base AS builder
+
 # Copy the package.json and lock files
-COPY ./compose/local/linkedinpreview/package*.json ./
+COPY ./package*.json ./
 
 # Install dependencies
 RUN pnpm install
 
-# Copy the rest of the application code
-COPY ./compose/local/linkedinpreview ./
+FROM builder AS final
 
+# Copy the rest of the application code
+COPY . .
 
 # Expose the port the app runs on
 EXPOSE 3000
