@@ -31,7 +31,7 @@ export function toPlainText(json: Node[]): string {
 
             if (block.type === 'paragraph' && !text.trim()) {
                 // If it's a paragraph block with no content, add a block separator '\n\n'
-                plainText += "\n\n"
+                plainText += "\n"
             } else {
                 // If it's not the last block and the next block is a paragraph with content, add a block separator '\n\n'
                 if (
@@ -39,7 +39,7 @@ export function toPlainText(json: Node[]): string {
                     json[i + 1].type === 'paragraph' &&
                     json[i + 1].content?.some((item) => item.type === 'text')
                 ) {
-                    plainText += text + "\n\n"
+                    plainText += text + "\n"
                 } else {
                     plainText += text
                 }

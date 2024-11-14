@@ -16,6 +16,7 @@ export function EditorPanel({ onChange, content }: { onChange: any, content: str
     const editor = useEditor({
         //content: "<p>Here it is: "+content+"</p>",
         content: toHtmlText(toPlainText(processNodes(content).content)),
+        //content: toPlainText(processNodes(content).content),
         extensions: [
             StarterKit.configure({}),
             Underline,
